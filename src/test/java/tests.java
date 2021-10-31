@@ -21,35 +21,69 @@ public class tests {
 
     @Test
     void selenideSearchTest() {
+        //data for assert
+        String firstName = "Denis";
+        String lastName = "Kananykhin";
+        String myEmail = "useremail@test.com";
+        String myNumber = "1234567891";
+        String myBirthDate = "25 January,1992";
+        String mySubject = "Accounting";
+        String myHobbies = "Sports, Music";
+        String myPicture = "cat.png";
+        String myAddress = "somewhere in Syberia";
+        String myStateAndCity = "NCR Delhi";
+
         //test of text inputs
-        $(byId("firstName")).setValue("firstname");
-        $(byId("lastName")).setValue("lastname");
-        $(byId("userEmail")).setValue("useremail@test.com");
+        $(byId("firstName")).setValue(firstName);
+        $(byId("lastName")).setValue(lastName);
+        $(byId("userEmail")).setValue(myEmail);
         $(byText("Male")).click();
-        $(byId("userNumber")).setValue("1234567891");
+        $(byId("userNumber")).setValue(myNumber);
+
         //test of calendar
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").selectOption("January");
         $(".react-datepicker__year-select").selectOption("1992");
-        $(byAttribute("aria-label", "Choose Friday, January 31st, 1992")).click();
+        $$(".react-datepicker__day").find(Condition.text("25")).click();
+
         //test of subject input
-        $(byAttribute("id", "subjectsInput")).setValue("Acc").pressEnter();
-        //test of checkboxes
+        $(byId("subjectsInput")).setValue("Acc").pressEnter();
+
+        //test of hobbies checkboxes
         $(byText("Sports")).click();
         $(byText("Music")).click();
-        //test of file
+
+        //test of file upload
         $("#uploadPicture").uploadFile(new File("C:\\Users\\kananykhin_do\\IdeaProjects\\QA_task2\\src\\test\\resources\\cat.png"));
+
         //test of current address
-        $(byAttribute("id", "currentAddress")).setValue("somewhere in Syberia");
+        $(byId("currentAddress")).setValue(myAddress);
         //test of State
         $("#state").click();
         $(byText("NCR")).click();
         //test of City
         $("#city").click();
-        $(byText("Agra"));
+        $(byText("Delhi")).click();
         //press submit button
         $("#submit").click();
 
+        //check all values
+        validation("Student Name", firstName + " " + lastName);
+        validation("Student Email", myEmail);
+        validation("Gender", "Male");
+        validation("Mobile", myNumber);
+        validation("Date of Birth", myBirthDate);
+        validation("Subjects", mySubject);
+        validation("Hobbies", myHobbies);
+        validation("Picture", myPicture);
+        validation("Address", myAddress);
+        validation("State and City", myStateAndCity);
 
+        //close table
+        $("#closeLargeModal").click();
+
+    }
+    void validation(String label, String value) {
+        $(".table-responsive").$(byText(label)).parent().shouldHave(text(value));
     }
 }
