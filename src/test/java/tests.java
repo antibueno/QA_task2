@@ -21,7 +21,7 @@ public class tests {
 
     @Test
     void selenideSearchTest() {
-        //data for assert
+        //resources
         String firstName = "Denis";
         String lastName = "Kananykhin";
         String myEmail = "useremail@test.com";
@@ -83,6 +83,7 @@ public class tests {
         $("#closeLargeModal").click();
 
     }
+
     void validation(String label, String value) {
         $(".table-responsive").$(byText(label)).parent().shouldHave(text(value));
     }
