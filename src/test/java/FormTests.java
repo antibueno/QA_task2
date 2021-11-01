@@ -2,6 +2,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
@@ -11,12 +12,16 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 
-public class tests {
+public class FormTests {
+
+    @BeforeEach
+    void beforeEach () {
+        open("https://demoqa.com/automation-practice-form");
+    }
 
     @BeforeAll
     static void beforeALl () {
         Configuration.startMaximized = true;
-        open("https://demoqa.com/automation-practice-form");
     }
 
     @Test
@@ -54,7 +59,7 @@ public class tests {
         $(byText("Music")).click();
 
         //test of file upload
-        $("#uploadPicture").uploadFile(new File("C:\\Users\\kananykhin_do\\IdeaProjects\\QA_task2\\src\\test\\resources\\cat.png"));
+        $("#uploadPicture").uploadFromClasspath("cat.png");
 
         //test of current address
         $(byId("currentAddress")).setValue(myAddress);
@@ -80,7 +85,7 @@ public class tests {
         validation("State and City", myStateAndCity);
 
         //close table
-        $("#closeLargeModal").click();
+        //$("#closeLargeModal").click();
 
     }
 

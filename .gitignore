@@ -44,3 +44,4 @@ target/
 .vscode
 /gradlew
 /gradlew.bat
+/.idea/
